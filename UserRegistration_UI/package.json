@@ -1,0 +1,25 @@
+{
+  "name": "userregistration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon ./src/app.js -e js,hbs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ayush",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.18",
+    "nodemon": "^2.0.7",
+    "path": "^0.12.7"
+  }
+}
