@@ -7,23 +7,8 @@ const Books = require("../model/BookSchema");
 const path = require("path");
 const hbs = require("hbs");
 
-// // static path
-// const staticPath = path.join(__dirname, "../public");
-// const templatesPath = path.join(__dirname, "../views/templates");
-// const partialPath = path.join(__dirname, "../views/partials");
-// router.set("view engine", "hbs");
-// router.set("views", templatesPath);
-// router.registerPartials(partialPath);
-// router.use(express.static(staticPath));
-
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
-// Home page
-router.get("/home", (req, res) => {
-  res.render("home", {
-    title: "BookShelf.com",
-  });
-});
 
 // Search by Query 
 router.get("/category/:id", (req, res) => {

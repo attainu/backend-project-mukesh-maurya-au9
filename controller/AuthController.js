@@ -13,6 +13,8 @@ router.use(bodyParser.json());
 
 // all Users
 router.get("/users", (req, res) => {
+  token = sessionStorage.getItem(token)
+  if (!token) return res.send("You are not allowed");
   User.find({}, (err, allUser) => {
     if (err) throw err;
     return res.status(200).send(allUser);
@@ -37,11 +39,6 @@ router.post("/signup", (req, res) => {
         (err, userData) => {
           if (err) throw err;
           res.render("register");
-          // res
-          //   .status(200)
-          //   .send(
-          //     `You have register successfully. Please Login.\n ${userData}`
-          //   );
         }
       );
     }
@@ -73,12 +70,22 @@ router.post("/login", (req, res) => {
       var token = jwt.sign({ id: userData._id }, config.secret, {
         expiresIn: 43200,
       });
-      res.render("login", {
-        title: "BookShelf.com",
-      });
-      res.status(200).send({ auth: true, token });
+      if (userData.role == "admin") {
+        res.redirect("/admin");
+      } else {
+        res.render("/profile", {
+          title: "BookShelf.com",
+        });
+      }
+      // res.status(200).send({ auth: true, token });
+      console.log("adming-loggedin");
     }
   });
+});
+
+// Admin panel
+router.get("/admin", (req, res) => {
+  res.render("admin/Admin");
 });
 
 // profile
@@ -94,6 +101,7 @@ router.get("/profile", (req, res) => {
         if (err) throw err;
         res.send(data);
       });
+      localStorage.setItem(token)
     });
   }
 });
@@ -122,4 +130,9 @@ router.put("/profile/update", (req, res) => {
     }
   );
 });
+// logout 
+router.get("/logout", (req, res)=>{
+  localStorage.setItem(null)
+  return res.send("Logout Sucess")
+})
 module.exports = router;
