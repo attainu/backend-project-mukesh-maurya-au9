@@ -25,7 +25,6 @@ router.post("/signup", (req, res) => {
     if (sameEmail) return res.send("Account already exist. Please Login.");
     else {
       let hashPassword = bcrypt.hashSync(req.body.password, 8);
-      let rePassword = bcrypt.hashSync(req.body.password, 8);
       User.create(
         {
           firstName: req.body.firstName,
@@ -33,15 +32,16 @@ router.post("/signup", (req, res) => {
           phone: req.body.phone,
           email: req.body.email,
           password: hashPassword,
-          rePassword: rePassword,
+          role: req.body.role ? req.body.role : "user",
         },
         (err, userData) => {
           if (err) throw err;
-          res
-            .status(200)
-            .send(
-              `You have register successfully. Please Login.\n ${userData}`
-            );
+          res.render("register");
+          // res
+          //   .status(200)
+          //   .send(
+          //     `You have register successfully. Please Login.\n ${userData}`
+          //   );
         }
       );
     }
@@ -73,6 +73,9 @@ router.post("/login", (req, res) => {
       var token = jwt.sign({ id: userData._id }, config.secret, {
         expiresIn: 43200,
       });
+      res.render("login", {
+        title: "BookShelf.com",
+      });
       res.status(200).send({ auth: true, token });
     }
   });
@@ -96,18 +99,18 @@ router.get("/profile", (req, res) => {
 });
 
 // Update
-router.put("/update", (req, res) => {
-  let id = req.body._id;
+router.put("/profile/update", (req, res) => {
+  let id = ObjectId(req.body._id);
   User.updateOne(
-    { id: ObjectId(id) },
+    { id: id },
     {
       $set: {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         phone: req.body.phone,
         email: req.body.email,
-        password: hashPassword,
-        rePassword: rePassword,
+        password: req.body.password,
+        role: req.body.role ? req.body.role : "user",
       },
     },
     (err, updatedData) => {
