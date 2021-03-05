@@ -1,23 +1,5 @@
 use BookShelf
-db.books.insert({
-    title:"Godan",
-    author:"Munshi Premchandra",
-    price: 120,
-    pages : "140",
-    Language : "Hindi",
-    origin : "India",
-    isActive : true,
-    category : "Novel",
-    genre : "Poverty and Social issues",
-    image: "https://res.cloudinary.com/bookshelf/image/upload/v1614441792/BookShelf/godan_gb5qci.png",
-    likes : [ 55, 12],
-    rating : "0.0",
-    comment: [{
-        fristName: "Mukesh",
-        lastName: "Maurya",
-        comment: "Great Book and best service by BookShelf."
-    }]
-})
+db.books.insert()
 
 => &#8377 for rupees symbole
 
@@ -42,3 +24,17 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/attainu/backend-project-mukesh-maurya-au9.git
 git push -u origin main
+
+
+## API
+(GET)  http://localhost/auth/profile
+(GET)  http://localhost/books/latest
+(GET)  http://localhost/books/auther=chetan_bhagat
+(GET)  http://localhost/books/recommended
+(GET)  http://localhost/books?id=5212 
+
+(Post) http://localhost/auth/login
+(Post) http://localhost/auth/signup
+
+(PUT) http://localhost/auth/profile/update
+(DEL) http://localhost/auth/deleteUser
