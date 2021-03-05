@@ -84,9 +84,9 @@ router.post("/login", (req, res) => {
 });
 
 // Admin panel
-router.get("/admin", (req, res) => {
-  res.render("admin/Admin");
-});
+// router.get("/admin", (req, res) => {
+//   res.render("admin/Admin");
+// });
 
 // profile
 router.get("/profile", (req, res) => {
