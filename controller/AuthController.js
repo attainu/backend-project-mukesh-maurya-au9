@@ -8,8 +8,8 @@ const User = require("../model/UserSchema");
 const config = require("../config/Token");
 const db = require("../config/Db");
 
-router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 // all Users
 router.get("/users", (req, res) => {
@@ -19,6 +19,23 @@ router.get("/users", (req, res) => {
   });
 });
 
+router.get("/home", (req, res) => {
+  res.render("home", {
+    title: "BookShelf.com",
+  });
+});
+
+router.get("/login", (req, res) => {
+  res.render("login", {
+    title: "BookShelf.com",
+  });
+});
+
+router.get("/signup", (req, res) => {
+  res.render("register", {
+    title: "BookShelf.com",
+  });
+});
 // Sign Up
 router.post("/signup", (req, res) => {
   User.findOne({ email: req.body.email }, (err, sameEmail) => {
@@ -36,7 +53,7 @@ router.post("/signup", (req, res) => {
         },
         (err, userData) => {
           if (err) throw err;
-          res.render("register");
+          res.render('Registered successfully');
           // res
           //   .status(200)
           //   .send(

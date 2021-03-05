@@ -11,6 +11,17 @@ const hbs = require("hbs");
 app.use(cors());
 app.use("/auth", Auth);
 app.use("/books", BooksAPI);
+// static path
+const staticPath = path.join(__dirname, "../public");
+const templatesPath = path.join(__dirname, "../templates/views");
+const partialPath = path.join(__dirname, "../templates/partials");
+app.set("view engine", "hbs");
+app.set("views", templatesPath);
+hbs.registerPartials(partialPath);
+app.use(express.static(staticPath));
+
+
+
 app.get("/", (req, res)=>{
   res.status(200).send("<h1>Helth is OK!!</h1>")
 })
@@ -28,14 +39,6 @@ app.get("/", (req, res)=>{
 //   res.render("register",{alert:alert})
 // })
 
-// static path
-const staticPath = path.join(__dirname, "../public");
-const templatesPath = path.join(__dirname, "../views/templates");
-const partialPath = path.join(__dirname, "../views/partials");
-app.set("view engine", "hbs");
-app.set("views", templatesPath);
-hbs.registerPartials(partialPath);
-app.use(express.static(staticPath));
 
 app.listen(port, (err) => {
   if (err) throw err;
