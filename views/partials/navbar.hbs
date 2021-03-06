@@ -2,7 +2,7 @@
 
 <div class="nav-fix">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">BookShelf</a>
+        <a class="navbar-brand" href="/home">BookShelf</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -18,13 +18,16 @@
                     <a class="nav-link" href="#"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:5000/auth/login">Login</a>
+                    <a class="nav-link" href="/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:5000/auth/signup">Sign Up</a>
+                    <a class="nav-link" href="/auth/signup">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:5000/auth/admin">Admin</a>
+                    <a class="nav-link" href="/auth/login">Login {{userName}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/profile">{{userName}}</a>
                 </li>
             </ul>
             <form action="/search"  class="form-inline my-2 my-lg-0">

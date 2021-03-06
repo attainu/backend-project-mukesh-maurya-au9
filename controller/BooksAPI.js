@@ -10,6 +10,8 @@ const hbs = require("hbs");
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
+
+
 // Search by Query 
 router.get("/category/:id", (req, res) => {
   let query = req.body.param;
