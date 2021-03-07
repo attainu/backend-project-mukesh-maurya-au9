@@ -1,3 +1,6 @@
 node_modules
-/info
+config
+controller
+model
+js
 Backup

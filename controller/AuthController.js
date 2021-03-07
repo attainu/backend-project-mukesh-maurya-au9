@@ -1,5 +1,5 @@
 const express = require("express");
-const mongoos = require("mongoose");
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const bodyParser = require("body-parser");
 const router = express.Router();
@@ -8,8 +8,12 @@ const User = require("../model/UserSchema");
 const config = require("../config/Token");
 const db = require("../config/Db");
 
-router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
+
+// router.get("/home", (req, res) => {
+//   res.render("home");
+// });
 
 // all Users
 router.get("/users", (req, res) => {
@@ -19,27 +23,13 @@ router.get("/users", (req, res) => {
   });
 });
 
-router.get("/home", (req, res) => {
-  res.render("home", {
-    title: "BookShelf.com",
-  });
-});
-
-router.get("/login", (req, res) => {
-  res.render("login", {
-    title: "BookShelf.com",
-  });
-});
-
-router.get("/signup", (req, res) => {
-  res.render("register", {
-    title: "BookShelf.com",
-  });
-});
 // Sign Up
 router.post("/signup", (req, res) => {
   User.findOne({ email: req.body.email }, (err, sameEmail) => {
-    if (sameEmail) return res.send("Account already exist. Please Login.");
+    if (sameEmail)
+      return res.redirect(
+        "/auth/login?errMessage=Email already exist. Please Login."
+      );
     else {
       let hashPassword = bcrypt.hashSync(req.body.password, 8);
       User.create(
@@ -53,12 +43,7 @@ router.post("/signup", (req, res) => {
         },
         (err, userData) => {
           if (err) throw err;
-          res.render('Registered successfully');
-          // res
-          //   .status(200)
-          //   .send(
-          //     `You have register successfully. Please Login.\n ${userData}`
-          //   );
+          res.redirect("/auth/login?successMessage=Successfully Register.");
         }
       );
     }
@@ -71,36 +56,63 @@ router.post("/login", (req, res) => {
     if (err)
       return res
         .status(500)
-        .send({ auth: false, Error: "Invalid login. Try again." });
+        .redirect("/auth/login?errMessage=Invalid login. Try again.");
     if (!userData)
-      return res.status(500).send({
-        auth: false,
-        Error: "Account not Found. Please Signup first.",
-      });
+      return res
+        .status(500)
+        .redirect(
+          "/auth/signup?errMessage=Account not Found. Please Signup first."
+        );
     else {
+      console.log(userData.firstName);
       var validPassword = bcrypt.compareSync(
         req.body.password,
         userData.password
       );
       if (!validPassword)
-        return res.send({
-          auth: false,
-          Error: "Invalid password!! Try again.",
-        });
+        return res.redirect(
+          "/auth/login?errMessage=Invalid password!! Try again."
+        );
       var token = jwt.sign({ id: userData._id }, config.secret, {
         expiresIn: 43200,
       });
-      res.render("login", {
-        title: "BookShelf.com",
-      });
-      res.status(200).send({ auth: true, token });
+      if (userData.role == "admin") {
+       
+        console.log(userData.firstName)
+        res.render("Admin", {
+          userName: userData.firstName
+        });
+      } else {
+        res.render("home", {
+          userName: userData.firstName
+        });
+      }
+
+      // res.status(200).send({ auth: true, token });
     }
   });
 });
 
+router.get("/login", (req, res) => {
+  let errMessage = req.query.errMessage ? req.query.errMessage : "";
+  let successMessage = req.query.successMessage ? req.query.successMessage : "";
+  res.render("login", {
+    errMessage: errMessage,
+    successMessage: successMessage
+  });
+});
+
+router.get("/signup", (req, res) => {
+  let errMessage = req.query.errMessage ? req.query.errMessage : "";
+  res.render("register", { errMessage: errMessage });
+});
+
 // profile
+// router.get("/profile", (req, res)=>{
+//   res.render("Profile")
+// })
 router.get("/profile", (req, res) => {
-  var token = req.headers[(x = access - token)];
+  var token = req.headers[("x-access-token")];
   if (!token)
     return res.status(500).send("Token Not found! Please login again.");
   else {
@@ -111,6 +123,7 @@ router.get("/profile", (req, res) => {
         if (err) throw err;
         res.send(data);
       });
+      localStorage.setItem(token);
     });
   }
 });
@@ -138,5 +151,10 @@ router.put("/profile/update", (req, res) => {
       res.status(200).send(`Update success. \n ${updatedData}`);
     }
   );
+});
+// logout
+router.get("/logout", (req, res) => {
+  localStorage.setItem(null);
+  return res.send("Logout Sucess");
 });
 module.exports = router;

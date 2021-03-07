@@ -6,24 +6,12 @@ const bodyParser = require("body-parser");
 const Books = require("../model/BookSchema");
 const path = require("path");
 const hbs = require("hbs");
-
-// // static path
-// const staticPath = path.join(__dirname, "../public");
-// const templatesPath = path.join(__dirname, "../views/templates");
-// const partialPath = path.join(__dirname, "../views/partials");
-// router.set("view engine", "hbs");
-// router.set("views", templatesPath);
-// router.registerPartials(partialPath);
-// router.use(express.static(staticPath));
+var book = Books.find({});
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
-// Home page
-router.get("/home", (req, res) => {
-  res.render("home", {
-    title: "BookShelf.com",
-  });
-});
+
+
 
 // Search by Query 
 router.get("/category/:id", (req, res) => {
@@ -46,12 +34,14 @@ router.get("/allbooks", (req, res)=>{
   })
 })
 
-// Search Latest
+
+//Search Latest
 router.get("/latest", (req, res)=>{
-  Books.find({latest:true}, (err, data)=>{
+  Books.find({'latest': true}, (err, data)=>{
     if (err) throw err;
-    res.status(200).send(data)
+    res.render('latestBooks', {title: 'Latest Books', 
+    contents: data});
   })
-})
+});
 
 module.exports = router;

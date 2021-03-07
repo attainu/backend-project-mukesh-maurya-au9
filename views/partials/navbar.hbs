@@ -1,8 +1,8 @@
 {{!-- navbar partials --}}
 
-<div class="nav-fix">
+<div class="nav-fix font_get">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">BookShelf</a>
+        <a class="navbar-brand" href="/books/latest">BookShelf</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,17 +11,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost:5000/auth/home">Home<span
+                    <a class="nav-link" href="/books/latest">Home<span
                             class="sr-only"></span></a>
                 </li>
                 <li class="nav-items">
                     <a class="nav-link" href="#"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:5000/auth/login">Login</a>
+                    <a class="nav-link" href="/admin/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:5000/auth/signup">Sign Up</a>
+                    <a class="nav-link" href="/auth/signup">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/profile">{{userName}}</a>
                 </li>
             </ul>
             <form action="/search"  class="form-inline my-2 my-lg-0">
