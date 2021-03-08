@@ -1,7 +1,13 @@
 {{!-- navbar partials --}}
+<style>
+    .nav-items{
+        color: #ffffff;
 
-<div class="nav-fix">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    }
+    
+</style>
+{{!-- <div class="navbar navbar-expand-lg navbar-dark bg-primary"> --}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/home">BookShelf</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,13 +24,16 @@
                     <a class="nav-link" href="#"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
+                    <a class="nav-link" href="/admin/about">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/auth/signup">Sign Up</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/auth/login">Login {{userName}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/logout">Log Out</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/auth/profile">{{userName}}</a>

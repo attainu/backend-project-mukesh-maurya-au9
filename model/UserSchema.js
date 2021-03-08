@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
     phone:Number,
     email:String,
     password:String,
-    role: String
+    role: String,
+    isActive: Boolean
 })
 
 // 

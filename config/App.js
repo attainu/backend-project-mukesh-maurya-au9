@@ -8,6 +8,10 @@ const BooksAPI = require("../controller/BooksAPI");
 const Admin = require("../controller/Admin");
 const path = require("path");
 const hbs = require("hbs");
+if (typeof localStorage === "undefined" || localStorage === null) {
+  const LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
 
 app.use(cors());
 app.use("/auth", Auth);

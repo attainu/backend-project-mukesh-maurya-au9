@@ -10,9 +10,7 @@ const hbs = require("hbs");
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-
-
-// Search by Query 
+// Search by Query
 router.get("/category/:id", (req, res) => {
   let query = req.body.param;
   if (query) {
@@ -27,18 +25,36 @@ router.get("/category/:id", (req, res) => {
 });
 
 // Search All Books
-router.get("/allbooks", (req, res)=>{
-  Books.find({}, (err, data)=>{
-    res.status(200).send(data)
-  })
-})
+router.get("/allbooks", (req, res) => {
+  Books.find({}, (err, allBooks) => {
+    if (err) throw err;
+    var usersName = localStorage.getItem("userData")
+    return res.render("BooksUpdate", { allBooks: allBooks, usersName:usersName})
+  });
+});
+// all books at home
+router.get("/libBooks", (req, res) => {
+  Books.find({}, (err, allBooks) => {
+    if (err) throw err;
+    return res.render("Books", {data:allBooks})
+  });
+});
+
+// search bar
+router.get("/searchBooks/:title", (req, res) => {
+  let query = req.query.params ? req.query.params : "The Holy Bible";
+  Books.find({ title: query }, (err, data) => {
+    return res.status(200).send(data);
+  });
+});
 
 // Search Latest
-router.get("/latest", (req, res)=>{
-  Books.find({latest:true}, (err, data)=>{
+router.get("/latest", (req, res) => {
+  Books.find({ latest: true }, (err, data) => {
     if (err) throw err;
-    res.status(200).send(data)
-  })
-})
+    console.log(data)
+    return res.status(200).render("latestBooks", {data:data});
+  });
+});
 
 module.exports = router;
