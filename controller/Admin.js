@@ -52,4 +52,10 @@ router.get("/allorders", (req, res) => {
     return res.status(200).send("Total order   is " + count);
   });
 });
+
+router.post("/author", (req, res)=>{
+  Books.find({author:req.body.author}, (err, author)=>{
+    res.send(author)
+  })
+})
 module.exports = router;

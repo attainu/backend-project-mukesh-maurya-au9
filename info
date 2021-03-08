@@ -38,3 +38,20 @@ git push -u origin main
 
 (PUT) http://localhost/auth/profile/update
 (DEL) http://localhost/auth/deleteUser
+
+
+work:
+
+create file -  kep seprate menu bar
+Create Dcription page:  buy now add card button
+latest page - buy now add card button
+Drop down auther
+Search bar with autocomplete\
+cart and increase quentity
+Navbar cdd correct
+about page details
+BestSellers
+## routes and hbs file
+TextBooks
+Award Winners
+Featured Authors
