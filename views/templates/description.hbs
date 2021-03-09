@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>main}}
+
+<body>
+    {{>navbar}}
+    {{>authors}}
+<div class="container">
+    <div class="row">
+
+ 
+
+
+    <!--Section: Block Content-->
+    {{# each bookFields}}
+
+    <section class="mb-5">
+
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+
+                <div id="mdb-lightbox-ui"></div>
+
+                <div class="mdb-lightbox">
+
+                    <div class="row product-gallery mx-1">
+
+                        <div class="col-12 mb-0">
+                            <figure class="view overlay rounded z-depth-1 main-img">
+                                <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
+                                    data-size="710x823">
+                                    <img src={{"https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"}}
+                                        class="img-fluid z-depth-1">
+                                </a>
+                            </figure>
+        
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <h3>{{this.title}}</h3>
+            <p class="mb-2 text-muted text-uppercase small">Shirts</p>
+            <ul class="rating">
+                <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+            </ul>
+            <p><span class="mr-1"><strong>Rs. {{this.price}}</strong></span></p>
+            <p class="pt-1">{{this.discription}}</p>
+            <div class="table-responsive">
+                <table class="table table-sm table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Author</strong></th>
+                            <td>{{this.author}}</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Rating</strong></th>
+                            <td>{{this.rating}}</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
+                            <td>{{this.Category}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="table-responsive mb-2">
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                        <tr>
+                            <td class="pl-0 pb-0 w-25">Quantity</td>
+
+                        </tr>
+                        <tr>
+                            <td class="pl-0">
+                                <div class="def-number-input number-input safari_only mb-0">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                        class="minus">-</button>
+                                    <input class="quantity" min="0" name="quantity" value="1" type="number">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                        class="plus">+</button>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
+            <button type="button" class="btn btn-light btn-md mr-1 mb-2"><i class="fas fa-shopping-cart pr-2"></i>Add to
+                cart</button>
+        </div>
+        </div>
+           </div>
+    </div>
+    </section>
+    {{/ each}}
+    <!--Section: Block Content-->
+    <script>
+        $(document).ready(function () {
+            // MDB Lightbox Init
+            $(function () {
+                $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+            });
+        });
+    </script>
+    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/popper.min.js"></script>
+    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/mdb.min.js"></script>
+    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/mdb.ecommerce.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>main}}
+<style>
+    .card-text {
+        overflow: hidden;
+    }
+</style>
+
+<body>
+
+    {{>navbar}}
+    {{>authors}}
+    <h3 class="center">{{title}}</h3>&nbsp;
+    <div class="container">
+
+
+        <div class="card_style">
+            {{# each data}}&nbsp;&nbsp;
+
+         <a style="text-decoration: none;color:gray" href="/books/description">
+                <div class="card shadow lg box" style="width: 15rem;">
+                <div class="bg-image hover-zoom">
+
+                    <img class="card-img-top" width="100" height="180" src="{{this.image}}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title ml-1"> {{this.title}}</h5>
+                    <span class="card-text">Author: {{this.author}}</span><br>
+                    <span class="card-text">Rating: {{this.rating}}</span><br>
+                    <span class="card-text">Rs. {{this.pageCount}}</span>
+                    <hr>
+                
+                </div>
+            </div>
+         </a>
+            {{/each}}
+        </div>
+    </div>
+    <hr>
+
+
+    <section class="authors-list">
+        <a href="#">
+            <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/stephan-coonts.jpg" alt="author1">
+        </a>
+        <a href="#">
+            <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/gayle-forman.jpg" alt="author1">
+        </a>
+        <a href="#">
+            <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/arundhatistory_647_100316054702.jpg"
+                alt="author1">
+        </a>
+        <a href="#">
+            <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/dillian.jpg" alt="author1">
+        </a>
+        <a href="#">
+            <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/ma10_milestones_segal.jpg" alt="author1">
+        </a>
+        <a href="#">
+            <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/dr-shashi-tharoor-2.jpg" alt="author1">
+        </a>
+        <a href="#">
+            <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/stephen-edwin-king.jpg" alt="author1">
+        </a>
+    </section>
+    {{>footer}}
+
+    <script>
+        $(function () {
+            $('#searchName').autocomplete({
+                source: function (req, res) {
+                    $.ajax({
+                        url: "autocomplete/",
+                        datatype: "jsonp",
+                        type: "GET",
+                        data: req,
+                        success: function (data) {
+                            res(data)
+
+                        },
+                        error: function (err) {
+                            console.log(err.status)
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        $('#searchName').text(ui.item.label)
+                    }
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

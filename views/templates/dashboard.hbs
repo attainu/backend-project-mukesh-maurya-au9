@@ -1,0 +1,128 @@
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100vh}
+    /* Set gray background color and 100% height */
+    .admin{
+      position: fixed;
+    }
+    .other{
+      margin-left:350px;
+    }
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+{{>navbar}}
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs admin">
+      <h2>Admin Panel</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="/admin/allUsers">Users Management</a></li>
+        <li><a href="#section3">Order List</a></li>
+        <li><a href="/books/allbooks">Books Update</a></li>
+      </ul><br>
+    </div>
+    <br>
+    
+    <div class="col-sm-9 other">
+      <div class="well">
+        <h4>Welcome</h4> {{!-- Display User Name--}}
+        <p>Some text..</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="well">
+            <h3 class="text text-info">Users</h3>
+            <p class="text text-success">120 User</p>
+            <p class="text text-warning"> 05 Admin</p>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h3 class="text text-info">Pages</h3>
+            <p class="text text-success"> 15 Active</p> 
+            <p class="text text-danger"> 06 Hidden</p> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h3 class="text text-info">Total Order {{this.count}}</h3> 
+            <p class="text text-success"> {{this.count}} Approved</p> 
+            <p class="text text-danger"> 0 Rejected</p> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h3 class="text text-info">Listed Books</h3>
+            <p class="text text-success"> 448 Books</p> 
+            <p class="text text-info"> 120 Maxgine</p> 
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+            <p>Text</p> 
+            <p>Text</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+            <p>Text</p> 
+            <p>Text</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+            <p>Text</p> 
+            <p>Text</p> 
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="well">
+            <p>Text</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var userName = ()=>{
+    var data = localStorage.getItem("userData")
+    console.log(data)
+    return {(data.firstName})
+  }
+</script>
+</body>
+</html>
