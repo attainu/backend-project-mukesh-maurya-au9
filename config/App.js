@@ -8,6 +8,10 @@ const BooksAPI = require("../controller/BooksAPI");
 const Admin = require("../controller/Admin");
 const path = require("path");
 const hbs = require("hbs");
+if (typeof localStorage === "undefined" || localStorage === null) {
+  const LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
 
 app.use(cors());
 app.use("/auth", Auth);
@@ -16,6 +20,11 @@ app.use("/admin", Admin);
 app.get("/", (req, res)=>{
   res.status(200).send("<h1>Helth is OK!!</h1>")
 })
+// app.get("/home", (req, res) => {
+//   res.render("home", {
+//     title: "BookShelf.com",
+//   });
+// });
 
 // static path
 const staticPath = path.join(__dirname, "../public");
@@ -28,10 +37,6 @@ app.set("views", templatesPath);
 hbs.registerPartials(partialPath);
 app.use(express.static(staticPath));
 
-
-// app.get("/home", (req, res) => {
-//   res.render("home");
-// });
 app.listen(port, (err) => {
   if (err) throw err;
   console.log(`Server running at http://localhost:${port}`);

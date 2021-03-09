@@ -1,0 +1,10 @@
+{
+  _id: 60437797ab99c3332cd76f93,
+  firstName: 'Ayush',
+  lastName: 'singh',
+  phone: 9794124609,
+  email: 'singhvlsiayush@gmail.com',
+  password: '$2a$08$Nw5OaXngiTGV1c7RTT2cDeg4n4A3yfBH2RhgCtmTefZAMy3XJmuUq',
+  role: 'user',
+  __v: 0
+}

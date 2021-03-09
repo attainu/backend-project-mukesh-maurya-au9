@@ -1,61 +1,54 @@
-{{!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 {{>main}}
 
 <body>
-    {{>navbar}}
-    <section class="middle">
-        <ul class="nav-below">
-            <li>
-                <a href="">Books</a>
-            </li>
-            <li>
-                <a href="http://localhost:5000/books/latest">New Arrivals</a>
-            </li>
-            <li>
-                <a href="">Pre-order</a>
-            </li>
-            <li>
-                <a href="">BestSellers</a>
-            </li>
-            <li>
-                <a href="">TextBooks</a>
-            </li>
-            <li>
-                <a href="">Award Winners</a>
-            </li>
-            <li>
-                <a href="">Featured Authors</a>
-            </li>
-        </ul>
-    </section>
-    
-    {{!-- {{>latestBooks}} --}}
-{{!-- 
+    {{>navbar}}{{userName}}
+  {{>authors}}
+
     <section class="authors-list">
-        <a href="#">
         <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/stephan-coonts.jpg" alt="author1">
-        </a>
-        <a href="#">
         <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/gayle-forman.jpg" alt="author1">
-        </a>
-        <a href="#">
-            <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/arundhatistory_647_100316054702.jpg" alt="author1">
-        </a>
-        <a href="#">
+
+        <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/arundhatistory_647_100316054702.jpg" alt="author1">
+
         <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/dillian.jpg" alt="author1">
-        </a>
-        <a href="#">
+
         <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/ma10_milestones_segal.jpg" alt="author1">
-        </a>
-        <a href="#">
+
         <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/dr-shashi-tharoor-2.jpg" alt="author1">
-        </a>
-        <a href="#">
+
         <img src="https://d2g9wbak88g7ch.cloudfront.net/authorimages/stephen-edwin-king.jpg" alt="author1">
-        </a>
+
     </section>
     {{>footer}}
+        <script>
+        $(function () {
+            $('#searchName').autocomplete({
+                source: function (req, res) {
+                    $.ajax({
+                        url: "autocomplete/",
+                        datatype: "jsonp",
+                        type: "GET",
+                        data: req,
+                        success: function (data) {
+                            res(data)
+
+                        },
+                        error: function (err) {
+                            console.log(err.status)
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        $('#searchName').text(ui.item.label)
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
-</html>  --}}
+</html>
