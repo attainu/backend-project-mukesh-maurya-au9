@@ -1,5 +1,4 @@
 const express = require("express");
-// const app = express()
 const router = express.Router();
 const db = require("../config/Db");
 const bodyParser = require("body-parser");
@@ -28,15 +27,18 @@ router.get("/category/:id", (req, res) => {
 router.get("/allbooks", (req, res) => {
   Books.find({}, (err, allBooks) => {
     if (err) throw err;
-    var usersName = localStorage.getItem("userData")
-    return res.render("BooksUpdate", { allBooks: allBooks, usersName:usersName})
+    var usersName = localStorage.getItem("userData");
+    return res.render("BooksUpdate", {
+      allBooks: allBooks,
+      usersName: usersName,
+    });
   });
 });
 // all books at home
 router.get("/libBooks", (req, res) => {
   Books.find({}, (err, allBooks) => {
     if (err) throw err;
-    return res.render("Books", {data:allBooks})
+    return res.render("Books", { data: allBooks });
   });
 });
 
@@ -52,8 +54,20 @@ router.get("/searchBooks/:title", (req, res) => {
 router.get("/latest", (req, res) => {
   Books.find({ latest: true }, (err, data) => {
     if (err) throw err;
-    console.log(data)
-    return res.status(200).render("latestBooks", {data:data});
+    return res.status(200).render("latestBooks", { data: data });
+  });
+});
+// localhost:5000/books/authors
+router.post("/author", (req, res) => {
+  Books.find({ author: req.body.author }, (err, author) => {
+    res.send(author);
+  });
+});
+// localhost:5000/books/awardWinners
+router.get("/awardWinners", (req, res) => {
+  Books.find({ awardWinners: true }, (err, awardWinners) => {
+    // console.log(awardWinners)
+    return res.render("awardWinners", { awardWinners: awardWinners });
   });
 });
 

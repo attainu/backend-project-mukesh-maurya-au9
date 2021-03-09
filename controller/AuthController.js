@@ -66,7 +66,6 @@ router.post("/login", (req, res) => {
           "/auth/signup?errMessage=Account not Found. Please Signup first."
         );
     else {
-      console.log("we are finding userdata=>", userData);
       var validPassword = bcrypt.compareSync(
         req.body.password,
         userData.password

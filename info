@@ -1,5 +1,23 @@
 use BookShelf
-db.books.insert()
+
+db.books.insert({
+    "title": "Blood in the Water",
+    "author": "Heather Ann Thompson",
+    "WrittenIn": 1924,
+    "price": 1120,
+    "pages": "752",
+    "Language": "English",
+    "origin": "United State",
+    "isActive": true,
+    "category": "Novel",
+    "genre": "Social Experiment",
+    "award": "Pulitzer Prize for History",
+    "awardWinners":true,
+    "image": "https://res.cloudinary.com/bookshelf/image/upload/v1615269227/BookShelf/awardWinners/9781400078240_aysfu2.jpg",
+    "likes": [4.5, "23k"],
+    "rating": "0.0",
+    "discription": "Blood in the Water: The Attica Prison Uprising of 1971 and Its Legacy is the third book from the University of Michigan historian Heather Ann Thompson"
+  })
 
 => &#8377 for rupees symbole
 
@@ -55,3 +73,24 @@ BestSellers
 TextBooks
 Award Winners
 Featured Authors
+
+ <table class="table ">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>IsActive</th>
+                    <th>Category</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {{# each allBooks}}
+                    <tr>
+                        <td>{{this.title}}</td>
+                        <td>{{this.price}}</td>
+                        <td>{{this.isActive}}</td>
+                        <td>{{this.category}}</td>
+                    </tr>
+                    {{/ each}}
+                </tbody>
+            </table>

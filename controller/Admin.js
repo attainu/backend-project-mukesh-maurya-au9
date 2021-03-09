@@ -18,7 +18,6 @@ router.get("/about", (req, res) => {
 // http://localhost:5000/admin/dashboard
 router.get("/dashboard", (req, res) => {
   var userName = localStorage.getItem("userData")
-  console.log(userName)
   Order.countDocuments({ isActive: true }, (err, count) => {
     return res.render("dashboard", {count: (+ count)});
   });
@@ -27,8 +26,6 @@ router.get("/dashboard", (req, res) => {
 router.get("/allUsers", (req, res) => {
   let token = localStorage.getItem("token");
   let userData = localStorage.getItem("userData");
-  console.log(userData);
-  // console.log(userData.role)
   let errMessage = req.query.errMessage ? req.query.errMessage : "";
   if (!token) {
     return res.send({ errMessage: "No session found" });
@@ -53,9 +50,4 @@ router.get("/allorders", (req, res) => {
   });
 });
 
-router.post("/author", (req, res)=>{
-  Books.find({author:req.body.author}, (err, author)=>{
-    res.send(author)
-  })
-})
 module.exports = router;

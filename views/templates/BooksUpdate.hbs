@@ -1,65 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Document</title>
-    {{!-- {{>main}} --}}
-    <style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
+  <title>Document</title>
+  <style>
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 100vh}
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
+    .row.content {
+      height: 550px
     }
     .admin{
       position: fixed;
     }
     .other{
       margin-left:350px;
-      margin-right: 15px;
+    }
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    .table{
+      flex-wrap: wrap;
     }
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
-      .row.content {height: auto;} 
+      .row.content {
+        height: auto;
+      }
     }
   </style>
 </head>
+
 <body>
-{{>navbar}}
-<div class="container-fluid admin">
-  <div class="row content">
-    <div class="col-sm-3 sidenav hidden-xs admin">
-      <h2>Admin Panel</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="/admin/dashboard">Dashboard</a></li>
-        <li><a href="/admin/allUsers">Users Management</a></li>
-        <li ><a href="/admin/orderlist">Order List</a></li>
-        <li class="active"><a href="/admin/bookupdate">Books Update</a></li>
-      </ul><br>
-    </div>
-    <br>
-    
-    <div class="col-sm-9 container other">
-      <div class="well">
-        <h4>Welcome </h4> {{!-- Display User Name--}}
-        <p>Some text..</p>
+  {{>navbar}}
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs admin">
+        <h2>Admin Panel</h2>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="/admin/dashboard">Dashboard</a></li>
+          <li ><a href="/admin/allUsers">Users Management</a></li>
+          <li><a href="/admin/order">Order List</a></li>
+          <li class="active"><a href="/books/allbooks">Books Update</a></li>
+        </ul><br>
       </div>
-      <div class="table-reponsive container">
-            <center> <h2>Hi Admin{{usersName.firstName}} </h2></center>
-          <div class="col-md-10">
-            <table class="table ">
+      <br>
+
+      <div class="col-sm-9 other">
+        <div class="well">
+          <h4>Welcome </h4> {{!-- Display User Name--}}
+          <p>Some text..</p>
+          <div class="table-reponsive container table">
+        <center>
+          <h2>Hi Admin {{adminName}} </h2>
+        </center>
+        <table class="table ">
                 <thead>
                   <tr>
                     <th>Title</th>
                     <th>Price</th>
                     <th>IsActive</th>
                     <th>Category</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -69,15 +81,91 @@
                         <td>{{this.price}}</td>
                         <td>{{this.isActive}}</td>
                         <td>{{this.category}}</td>
+                        <td>
+                          <button type="button" class="edit btn btn-info" data-toggel="modal" data-target="#myedit" id="{{_id}}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                          </button>
+                          <button type="button" class="edit btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                        </td>
                     </tr>
                     {{/ each}}
                 </tbody>
             </table>
+         
+                </div>
+              </div>
+            </div>
           </div>
-        </div>   
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+   <!--Modal here-->
+                <div class="modal" id="myedit">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                    
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                            <h4 class="modal-title">Edit User</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                    
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form action="/admin/editUser" method="POST" id="update_user">
+                                    <input type="text" readonly class="form-control" id="update_id"  name="_id">
+                                    <div class="form-group">
+                                        <label for="name">Name:</label>
+                                        <input type="text" class="form-control" id="update_name" placeholder="Enter First name" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" class="form-control" id="update_email" placeholder="Enter Email" name="email">
+                                    </div>
+                                    <label for="name">User Type:</label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="update_type"
+                                        name="role" value="user"/>
+                                        User
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="update_type"
+                                        name="role" value="Admin"/>
+                                        Admin
+                                    </label>
+                                    <div>
+                                        <label for="name">User Status:</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" id="update_active"
+                                            name="isActive" value="true"/>
+                                            Active
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" id="update_active"
+                                            name="isActive" value="false"/>
+                                            InActive
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                    <button type="button" class="mclose btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" id="update_table" class="btn btn-primary">update</button>
+                            </div>
+                        </div>
+                    </div>
+  <script>
+    var userName = () => {
+      var data = localStorage.getItem("userData")
+      console.log(data)
+      return {(data.firstName})
+  }
+  </script>
 </body>
+
 </html>

@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
   isActive: Boolean,
   category: String,
   genre: String,
+  awardWinner: Boolean,
+  award: String,
   image: String,
   likes: Array,
   rating: Number,
