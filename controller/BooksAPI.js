@@ -46,10 +46,10 @@ router.get("/libBooks", (req, res) => {
 // search bar
 router.get("/search", (req, res) => {
   let searchField = req.query.title;
-  Books.find({title: searchField}, (err, data) => {
-    console.log(data);
-    if(err) throw err;
-    res.render('search', {bookInfo: data});
+  Books.find({ title: searchField }, (err, data) => {
+   
+    if (err) throw err;
+    res.render("search", { bookInfo: data });
   });
 });
 
@@ -64,8 +64,8 @@ router.get("/latest", (req, res) => {
 router.get("/autocomplete/", (req, res) => {
   var regex = new RegExp(req.query["term"], "i");
   var bookFilter = Books.find({ title: regex }, { title: 1 })
-    .sort({ "updated_at": -1 })
-    .sort({ "created_at": -1 })
+    .sort({ updated_at: -1 })
+    .sort({ created_at: -1 })
     .limit(10);
   bookFilter.exec(function (err, data) {
     var result = [];
@@ -74,7 +74,7 @@ router.get("/autocomplete/", (req, res) => {
         data.forEach((book) => {
           let obj = {
             id: book._id,
-            label: book.title
+            label: book.title,
           };
 
           result.push(obj);
@@ -82,16 +82,15 @@ router.get("/autocomplete/", (req, res) => {
       }
     }
     res.jsonp(result);
-    
   });
 });
-router.get("/description", (req, res) => {
-  Books.find({}, (err, data) => {
-    if (err) throw err;
-    return res.status(200).render("description", {bookFields: data});
-  });
-});
+router.get("/description/:id", (req, res) => {
 
+  Books.find({_id: req.params.id}, (err, data) => {
+    if (err) throw err;
+    return res.status(200).render("description", { data: data })
+   });
+});
 
 router.get("/home", (req, res) => {
   res.render("home", {
