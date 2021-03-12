@@ -1,133 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 {{>main}}
+<style>
+    @import url("http://fonts.googleapis.com/css?family=Oswald:300,400:latin,latin-ext");
+
+    body {
+        font-family: "Oswald", arial narrow, sans-serif;
+    }
+
+    .container {
+        margin-left: 150px;
+        margin-top: 50px;
+    }
+
+    .image_design img {
+        border: 1px solid yellow;
+        margin-right: 50px;
+
+    }
+
+    @media (min-width: 768px) {
+        .col-md-6 {
+            width: 600px;
+        }
+    }
+
+    .rating {
+
+        margin-left: -2rem;
+    }
+
+    .rating li {
+        list-style-type: none;
+        font-size: 20px;
+
+    }
+
+    .head {
+        font-size: 40px;
+
+    }
+
+    .content_portion {
+        border-left: 1px solid gray;
+        margin-left: 10px;
+
+    }
+
+    .middle {
+        background-color: #221e1f;
+    }
+
+    .nav-below {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-below li {
+        list-style-type: none;
+        margin: 4px 0px;
+    }
+
+    .nav-below li a {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: 900;
+        font-size: 13px;
+        font-family: sans-serif;
+        padding: 8px 18px;
+        border-right: 1px solid gray;
+        border-left: 1px solid gray;
+    }
+
+    .nav-below li a:hover {
+        background-color: #000;
+    }
+
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .dropdown>.dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+
+    .drop {
+        font-family: "Oswald", arial narrow, sans-serif;
+        font-size: 10px;
+        margin-top: -23px;
+        margin-bottom: -12px;
+    }
+
+    .down a {
+        color: white;
+    }
+</style>
 
 <body>
     {{>navbar}}
-    {{>authors}}
-<div class="container">
-    <div class="row">
-
- 
-
-
-    <!--Section: Block Content-->
-    {{# each bookFields}}
-
-    <section class="mb-5">
-
-        <div class="row">
-            <div class="col-md-6 mb-4 mb-md-0">
-
-                <div id="mdb-lightbox-ui"></div>
-
-                <div class="mdb-lightbox">
-
-                    <div class="row product-gallery mx-1">
-
-                        <div class="col-12 mb-0">
-                            <figure class="view overlay rounded z-depth-1 main-img">
-                                <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
-                                    data-size="710x823">
-                                    <img src={{"https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"}}
-                                        class="img-fluid z-depth-1">
-                                </a>
-                            </figure>
-        
-                        </div>
+    <section class="middle">
+        <ul class="nav-below">
+            <li>
+                <a href="/books/libBooks">Books</a>
+            </li>
+            <li>
+                <a href="http://localhost:5000/books/latest">New Arrivals</a>
+            </li>
+            <li>
+                <a href="">BestSellers</a>
+            </li>
+            <li>
+                <a href="">TextBooks</a>
+            </li>
+            <li>
+                <a href="">Award Winners</a>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <div class="drop">
+                        <a class="btn btn-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true">
+                            Featured Authors
+                        </a>
 
                     </div>
-
+                    <div class="dropdown-menu drop_down down">
+                        <a class="dropdown-item text-warning" href="#">Shashi Tharoor</a>
+                        <a class="dropdown-item text-warning" href="#">
+                            Stephen Coonts</a>
+                        <a class="dropdown-item text-warning" href="#">Arundhati Roy</a>
+                        <a class="dropdown-item text-warning" href="#">Arundhati Roy</a>
+                        <a class="dropdown-item text-warning" href="#">Arundhati Roy</a>
+                        <a class="dropdown-item text-warning" href="#">Arundhati Roy</a>
+                        <a class="dropdown-item text-warning" href="#">Arundhati Roy</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6">
+                {{!-- </div> --}}
+            </li>
+        </ul>
 
-            <h3>{{this.title}}</h3>
-            <p class="mb-2 text-muted text-uppercase small">Shirts</p>
-            <ul class="rating">
-                <li>
-                    <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                    <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                    <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                    <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                    <i class="far fa-star fa-sm text-primary"></i>
-                </li>
-            </ul>
-            <p><span class="mr-1"><strong>Rs. {{this.price}}</strong></span></p>
-            <p class="pt-1">{{this.discription}}</p>
-            <div class="table-responsive">
-                <table class="table table-sm table-borderless mb-0">
-                    <tbody>
-                        <tr>
-                            <th class="pl-0 w-25" scope="row"><strong>Author</strong></th>
-                            <td>{{this.author}}</td>
-                        </tr>
-                        <tr>
-                            <th class="pl-0 w-25" scope="row"><strong>Rating</strong></th>
-                            <td>{{this.rating}}</td>
-                        </tr>
-                        <tr>
-                            <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
-                            <td>{{this.Category}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <hr>
-            <div class="table-responsive mb-2">
-                <table class="table table-sm table-borderless">
-                    <tbody>
-                        <tr>
-                            <td class="pl-0 pb-0 w-25">Quantity</td>
 
-                        </tr>
-                        <tr>
-                            <td class="pl-0">
-                                <div class="def-number-input number-input safari_only mb-0">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                        class="minus">-</button>
-                                    <input class="quantity" min="0" name="quantity" value="1" type="number">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                        class="plus">+</button>
+    </section>
+
+    <div class="container m-8">
+        <div class="row">
+
+
+
+
+            <!--Section: Block Content-->
+            {{# each data}}
+
+            <section class="mb-6 d-flex">
+                <div class="image_portion">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+
+                            <div id="mdb-lightbox-ui"></div>
+
+                            <div class="mdb-lightbox">
+
+                                <div class="row product-gallery mx-1">
+
+                                    <div class="col-12 mb-0">
+                                        <figure class="view overlay rounded z-depth-1 main-img">
+                                            <a class="image_design" href="#" data-size="710x823">
+                                                <img class="mt-3" width="400px" height="600px" src={{this.image}}
+                                                    class="img-fluid z-depth-1">
+                                            </a>
+                                        </figure>
+
+                                    </div>
+
                                 </div>
-                            </td>
 
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
-            <button type="button" class="btn btn-light btn-md mr-1 mb-2"><i class="fas fa-shopping-cart pr-2"></i>Add to
-                cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content_portion">
+                    <div class="col-md-6">
+
+                        <h3 class="head">{{this.title}}</h3>
+                        <p class="mb-2 text-muted text-uppercase small"></p>
+                        <ul class="rating d-flex">
+                            <li>
+                                <i class="fas fa-star fa-sm text-primary"></i>
+                            </li>
+                            <li>
+                                <i class="fas fa-star fa-sm text-primary"></i>
+                            </li>
+                            <li>
+                                <i class="fas fa-star fa-sm text-primary"></i>
+                            </li>
+                            <li>
+                                <i class="fas fa-star fa-sm text-primary"></i>
+                            </li>
+                            <li>
+                                <i class="far fa-star fa-sm text-primary"></i>
+                            </li>
+                        </ul>
+                        <p><span style="font-size: 20px;" class="mr-1"><strong>Rs. {{this.price}}</strong></span></p>
+                        <p class="pt-1" style="font-size: 20px;"><strong>Description:</strong>
+                            <small>{{this.discription}}</small>
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th class="pl-0 w-25" style="font-size: 20px;" scope="row">
+                                            <strong>Author:</strong>
+                                        </th>
+                                        <td style="font-size: 20px;">{{this.author}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 20px;" class="pl-0 w-25" scope="row">
+                                            <strong>Rating:</strong>
+                                        </th>
+                                        <td style="font-size: 20px;">{{this.rating}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="pl-0 w-25" style="font-size: 20px;" scope="row">
+                                            <strong>Category:</strong>
+                                        </th>
+                                        <td>{{this.Category}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+
+                        <div class="table-responsive mb-2">
+                            <table class="table table-sm table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td style="font-size: 20px;" class="pl-0 pb-0 w-25">Quantity</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="pl-0">
+                                            <div class="def-number-input number-input safari_only mb-0">
+                                                <button style="font-size: 20px; border: 1px solid gray;"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                    class="minus">-</button>
+                                                <input style="font-size: 20px;" class="quantity" min="0" name="quantity"
+                                                    value="1" type="number">
+                                                <button style="font-size: 20px; border: 1px solid gray"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                    class="plus">+</button>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" style="font-size: 15px;" class="btn btn-primary btn-md mr-1 mb-2">Buy
+                            now</button>
+                        <button type="button" style="font-size: 15px;" class="btn btn-light btn-md mr-1 mb-2"><i
+                                class="fas fa-shopping-cart pr-2"></i>Add to
+                            cart</button>
+                    </div>
+                </div>
         </div>
-        </div>
-           </div>
+    </div>
     </div>
     </section>
     {{/ each}}
     <!--Section: Block Content-->
     <script>
-        $(document).ready(function () {
-            // MDB Lightbox Init
-            $(function () {
-                $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+        $(function () {
+            $('#searchName').autocomplete({
+                source: function (req, res) {
+                    $.ajax({
+                        url: "autocomplete/",
+                        datatype: "jsonp",
+                        type: "GET",
+                        data: req,
+                        success: function (data) {
+                            res(data)
+
+                        },
+                        error: function (err) {
+                            console.log(err.status)
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        $('#searchName').val(ui.item.label)
+                    }
+                }
             });
         });
     </script>
-    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/popper.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/mdb.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdb-ecommerce/js/mdb.ecommerce.min.js"></script>
+
 </body>
 
 </html>
