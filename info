@@ -1,22 +1,22 @@
 use BookShelf
 
 db.books.insert({
-    "title": "Blood in the Water",
-    "author": "Heather Ann Thompson",
-    "WrittenIn": 1924,
-    "price": 1120,
-    "pages": "752",
+    "title": "The 3 Mistakes of My Life",
+    "author": "Chetan Bhagat",
+    "WrittenIn": 2008,
+    "price": 250,
+    "pages": "322",
     "Language": "English",
-    "origin": "United State",
+    "origin": "India",
     "isActive": true,
     "category": "Novel",
-    "genre": "Social Experiment",
-    "award": "Pulitzer Prize for History",
+    "genre": "Social",
+    "award": "Idea Best Selling Book ",
     "awardWinners":true,
-    "image": "https://res.cloudinary.com/bookshelf/image/upload/v1615269227/BookShelf/awardWinners/9781400078240_aysfu2.jpg",
+    "image": "https://i.pinimg.com/564x/b2/2d/a3/b22da358b7f6dab1377d3d1a5ca19f00.jpg",
     "likes": [4.5, "23k"],
     "rating": "0.0",
-    "discription": "Blood in the Water: The Attica Prison Uprising of 1971 and Its Legacy is the third book from the University of Michigan historian Heather Ann Thompson"
+    "discription": "The 3 Mistakes of My Life is the third novel written by Chetan Bhagat. The book was published in May 2008 and had an initial print-run of 420,000. The novel follows the story of three friends and is based in the city of Ahmedabad in western India. This is the third best seller novel by Chetan Bhagat."
   })
 
 => &#8377 for rupees symbole
@@ -94,3 +94,42 @@ Featured Authors
                     {{/ each}}
                 </tbody>
             </table>
+
+<img src="https://img.icons8.com/bubbles/100/000000/user.png"
+
+
+<div class="table-reponsive container table">
+                        <center>
+                            <h2>Hi Admin {{adminName}} </h2>
+                        </center>
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th>IsActive</th>
+                                    <th>Category</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{# each allBooks}}
+                                <tr>
+                                    <td>{{this.title}}</td>
+                                    <td>{{this.price}}</td>
+                                    <td>{{this.isActive}}</td>
+                                    <td>{{this.category}}</td>
+                                    <td>
+                                        <button type="button" class="edit btn btn-info" data-toggel="modal"
+                                            data-target="#myedit" id="{{_id}}">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+                                        <button type="button" class="edit btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {{/ each}}
+                            </tbody>
+                        </table>
+                    </div>

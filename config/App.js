@@ -6,17 +6,24 @@ const db = require("./Db");
 const Auth = require("../controller/AuthController");
 const BooksAPI = require("../controller/BooksAPI");
 const Admin = require("../controller/Admin");
+const Order = require("../controller/Order")
 const path = require("path");
 const hbs = require("hbs");
-if (typeof localStorage === "undefined" || localStorage === null) {
-  const LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
-}
+const session = require("express-session")
+// if (typeof localStorage === "undefined" || localStorage === null) {
+//   const LocalStorage = require('node-localstorage').LocalStorage;
+//   localStorage = new LocalStorage('./scratch');
+// }
 
+///use session
+app.use(session({
+  secret:'mysecret'
+}));
 app.use(cors());
 app.use("/auth", Auth);
 app.use("/books", BooksAPI);
 app.use("/admin", Admin);
+app.use("/order", Order)
 app.get("/", (req, res)=>{
   res.status(200).send("<h1>Helth is OK!!</h1>")
 })
@@ -30,7 +37,7 @@ app.get("/home", (req, res) => {
 const staticPath = path.join(__dirname, "../public");
 const templatesPath = path.join(__dirname, "../views/templates");
 const partialPath = path.join(__dirname, "../views/partials");
-const adminPath = path.join(__dirname, "../views/admin");
+// const adminPath = path.join(__dirname, "../views/admin");
 
 app.set("view engine", "hbs");
 app.set("views", templatesPath);

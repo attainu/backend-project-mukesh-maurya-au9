@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../model/UserSchema");
 const config = require("../config/Token");
 const db = require("../config/Db");
+const session = require("express-session")
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
@@ -26,6 +27,10 @@ router.post("/signup", (req, res) => {
       return res.redirect(
         "/auth/login?errMessage=Email already exist. Please Login."
       );
+    if (sameEmail.phone == req.body.phone)
+    return res.redirect(
+      "/auth/login?errMessage=Phone No. already Taken, User another One."
+    );
     else {
       let hashPassword = bcrypt.hashSync(req.body.password, 8);
       User.create(
@@ -77,10 +82,10 @@ router.post("/login", (req, res) => {
       var token = jwt.sign({ id: userData._id }, config.secret, {
         expiresIn: 43200,
       });
-      localStorage.setItem("token", token);
-      localStorage.setItem("userData", userData);
+      req.session.userData = userData;
+      req.session.token = token
       if (userData.role == "admin") {
-        res.render("dashboard", { userName: userData.lastName });
+        res.render("dashboard", {userData:req.session.userData, token:req.session.token});
       } else {
         res.redirect("/auth/profile");
       }
@@ -99,13 +104,11 @@ router.get("/login", (req, res) => {
 
 // Profile route
 router.get("/profile", (req, res) => {
-  var token = req.headers["x-access-token"];
-  var tokenStr = localStorage.getItem("token");
-  var userInfo = localStorage.getItem("userData");
-  if (!tokenStr)
+  var tokenStr = req.headers["x-access-token"];
+  if (!req.session.token)
     return res.status(500).send("Token Not found! Please login again.");
   else {
-    jwt.verify(tokenStr, config.secret, (err, result) => {
+    jwt.verify(req.session.token, config.secret, (err, result) => {
       if (err)
         return res.status(500).send({ auth: false, Error: "Invalid token." });
       User.findById(result.id, { password: 0 }, (err, data) => {
@@ -143,7 +146,8 @@ router.put("/profile/update", (req, res) => {
 });
 // logout
 router.get("/logout", (req, res) => {
-  localStorage.clear();
+  // res.session.userData = null;
+  // req.session.token = null;
   return res.redirect("/home");
 });
 module.exports = router;

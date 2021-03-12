@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     isActive: Boolean
 })
 
-// 
 mongoose.model(col_name, userSchema);
 module.exports = mongoose.model(col_name)
 
